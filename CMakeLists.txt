@@ -60,6 +60,7 @@ set(STM32CUBEMX_GENERATED_FILES
         Cube/Middlewares/usb/src/usbd_desc.c
         Cube/Middlewares/usb/src/usb_device.c
         Cube/Middlewares/usb/src/usbd_ioreq.c
+        src/blinker.cpp
         src/mainloop.cpp
 )
 

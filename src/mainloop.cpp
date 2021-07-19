@@ -1,6 +1,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_device.h"
+#include "blinker.h"
 
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
@@ -13,7 +14,6 @@ const osThreadAttr_t defaultTask_attributes = {
 ETH_HandleTypeDef heth;
 RNG_HandleTypeDef hrng;
 RTC_HandleTypeDef hrtc;
-
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -169,14 +169,11 @@ void StartDefaultTask(void *argument)
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
   }
   */
+  Test t;
   MX_USB_DEVICE_Init();
   for (;;)
   {
-    osDelay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-    osDelay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-
+    t.blink_once(500);
   }
   /* USER CODE END 5 */
 }
