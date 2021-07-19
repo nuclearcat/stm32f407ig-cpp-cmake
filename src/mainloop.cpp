@@ -28,25 +28,16 @@ int main() {
   SystemClock_Config();
   MX_GPIO_Init();
   //MX_CRC_Init();
-  
   //MX_ETH_Init();
   MX_RNG_Init();
   MX_RTC_Init();
 
-
   // FreeRTOS stuff
-  /* Init scheduler */
   osKernelInitialize();
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
   osKernelStart();
-
-
-  // We never reach here
-
-  while (1) {
-
-  }
+  // We never reach here as RTOS kernel took over
+  while (1) { }
 }
 
 /**
@@ -149,7 +140,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
 /**
@@ -159,23 +150,12 @@ static void MX_GPIO_Init(void)
   */
 void StartDefaultTask(void *argument)
 {
-  /*
-  while(1) {
-    //HAL_Delay(500);
-    osDelay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-    //HAL_Delay(500);
-    osDelay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-  }
-  */
   Test t;
   MX_USB_DEVICE_Init();
   for (;;)
   {
     t.blink_once(500);
   }
-  /* USER CODE END 5 */
 }
 
 
@@ -245,9 +225,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 void Error_Handler(void)
 {
-  /* Turn LED4 on */
-  //BSP_LED_On(LED4);
-  while (1)
-  {
-  }
+  // Blink some led?
+  while (1) { }
 }
